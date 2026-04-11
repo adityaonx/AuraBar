@@ -24,7 +24,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     let developerName = "Aditya Sahu"
     
-    // Dynamic version retrieval from your Project's Info.plist
     var appVersion: String {
         return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
     }
@@ -39,7 +38,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         if !UserDefaults.standard.bool(forKey: "HasLaunchedBefore") {
-            showWelcomeAlert()
             UserDefaults.standard.set(true, forKey: "HasLaunchedBefore")
             showSettings(nil)
         }
@@ -71,50 +69,38 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem?.menu = menu
     }
 
-    // MARK: - Robust Update Logic
-        @objc func checkUpdates() {
-            // Corrected URL: Verified your username from previous screenshots is 'adityaonx'
-            let urlString = "https://raw.githubusercontent.com/adityaonx/AuraBar/main/version.json"
-            guard let url = URL(string: urlString) else { return }
+    @objc func checkUpdates() {
+        let urlString = "https://raw.githubusercontent.com/adityaonx/AuraBar/main/version.json"
+        guard let url = URL(string: urlString) else { return }
 
-            print("Checking for updates at: \(urlString)")
+        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            if let error = error {
+                self?.showUpdateAlert(title: "Connection Error", message: error.localizedDescription)
+                return
+            }
 
-            URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
-                // Handle Network Errors (like Sandbox blocking)
-                if let error = error {
-                    print("Update Error: \(error.localizedDescription)")
-                    self?.showUpdateAlert(title: "Connection Error", message: "Could not reach the update server. Error: \(error.localizedDescription)")
-                    return
-                }
+            guard let data = data else { return }
 
-                guard let data = data else { return }
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                   let remoteVersion = json["version"] as? String {
+                    
+                    let localVersion = self?.appVersion ?? "1.0.0"
 
-                do {
-                    if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-                       let remoteVersionRaw = json["version"] as? String {
-                        
-                        let remoteVersion = remoteVersionRaw.trimmingCharacters(in: .whitespacesAndNewlines)
-                        let localVersion = self?.appVersion ?? "1.0.0"
-                        
-                        print("Remote: \(remoteVersion) | Local: \(localVersion)")
-
-                        DispatchQueue.main.async {
-                            if remoteVersion.compare(localVersion, options: .numeric) == .orderedDescending {
-                                self?.showNewVersionAvailable(version: remoteVersion)
-                            } else {
-                                self?.showUpdateAlert(title: "Up to Date", message: "AuraBar v\(localVersion) is currently the newest version.")
-                            }
+                    DispatchQueue.main.async {
+                        if remoteVersion.compare(localVersion, options: .numeric) == .orderedDescending {
+                            self?.showNewVersionAvailable(version: remoteVersion)
+                        } else {
+                            self?.showUpdateAlert(title: "Up to Date", message: "AuraBar v\(localVersion) is the newest version.")
                         }
-                    } else {
-                        print("JSON Key Mismatch: Ensure GitHub has 'version' key.")
-                        self?.showUpdateAlert(title: "Parsing Error", message: "Key 'version' not found in JSON.")
                     }
-                } catch {
-                    print("JSON Parsing Error: \(error.localizedDescription)")
-                    self?.showUpdateAlert(title: "Parsing Error", message: "The update manifest on GitHub is malformed.")
                 }
-            }.resume()
-        }
+            } catch {
+                self?.showUpdateAlert(title: "Parsing Error", message: "The update manifest is malformed.")
+            }
+        }.resume()
+    }
+
     func showUpdateAlert(title: String, message: String) {
         DispatchQueue.main.async {
             let alert = NSAlert()
@@ -129,7 +115,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func showNewVersionAvailable(version: String) {
         let alert = NSAlert()
         alert.messageText = "Update Available!"
-        alert.informativeText = "AuraBar v\(version) is now available. Would you like to download it?"
+        alert.informativeText = "AuraBar v\(version) is available. Download now?"
         alert.addButton(withTitle: "Download")
         alert.addButton(withTitle: "Later")
         
@@ -140,7 +126,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    // MARK: - Features
     @objc func toggleLogin() {
         if #available(macOS 13.0, *) {
             let service = SMAppService.mainApp
@@ -151,18 +136,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func showAbout() {
         let alert = NSAlert()
         alert.messageText = "AuraBar \(appVersion)"
-        alert.informativeText = "Developed by \(developerName)\nDynamic menu bar syncing."
+        alert.informativeText = "Developed by \(developerName)\nPrinciple of Least Privilege Applied."
         alert.runModal()
     }
 
-    func showWelcomeAlert() {
-        let alert = NSAlert()
-        alert.messageText = "Welcome to AuraBar"
-        alert.informativeText = "Manage your app colors from the palette icon in your menu bar."
-        alert.runModal()
-    }
-
-    // MARK: - Core Overlay (33pt)
     func setupOverlay() {
         guard let screen = NSScreen.screens.first else { return }
         let barHeight: CGFloat = 33
@@ -200,13 +177,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 }
 
-// MARK: - Recursion-Free Settings Window
+// MARK: - Settings Window with Individual Removal
 class SettingsWindow: NSWindow {
     let mainStack = NSStackView()
     let listStack = NSStackView()
 
     init() {
-        super.init(contentRect: NSRect(x: 0, y: 0, width: 380, height: 450),
+        super.init(contentRect: NSRect(x: 0, y: 0, width: 420, height: 450),
                    styleMask: [.titled, .closable, .miniaturizable], backing: .buffered, defer: false)
         self.title = "AuraBar Settings"
         self.isReleasedWhenClosed = false
@@ -228,7 +205,7 @@ class SettingsWindow: NSWindow {
             mainStack.trailingAnchor.constraint(equalTo: content.trailingAnchor)
         ])
         
-        let header = NSTextField(labelWithString: "Mapping Configuration")
+        let header = NSTextField(labelWithString: "App Color Mappings")
         header.font = NSFont.boldSystemFont(ofSize: 13)
         mainStack.addArrangedSubview(header)
 
@@ -237,7 +214,7 @@ class SettingsWindow: NSWindow {
         mainStack.addArrangedSubview(addButton)
         
         listStack.orientation = .vertical
-        listStack.spacing = 10
+        listStack.spacing = 12
         listStack.alignment = .leading
         mainStack.addArrangedSubview(listStack)
         
@@ -250,15 +227,16 @@ class SettingsWindow: NSWindow {
         if panel.runModal() == .OK, let url = panel.url {
             let bundleID = Bundle(url: url)?.bundleIdentifier?.lowercased() ?? "unknown"
             createRow(bundleID: bundleID, color: .gray)
+            saveColor(bundleID: bundleID, color: .gray)
         }
     }
 
     func createRow(bundleID: String, color: NSColor) {
         let row = NSStackView()
         row.orientation = .horizontal
-        row.spacing = 8
+        row.spacing = 10
         
-        let well = NSColorWell(frame: NSRect(x: 0, y: 0, width: 44, height: 24))
+        let well = NSColorWell(frame: NSRect(x: 0, y: 0, width: 40, height: 24))
         well.color = color
         well.identifier = NSUserInterfaceItemIdentifier(bundleID)
         well.target = self
@@ -267,19 +245,47 @@ class SettingsWindow: NSWindow {
         let name = bundleID.replacingOccurrences(of: "com.", with: "").capitalized
         let label = NSTextField(labelWithString: name)
         label.font = NSFont.monospacedSystemFont(ofSize: 11, weight: .regular)
+        label.widthAnchor.constraint(equalToConstant: 220).isActive = true
+
+        let removeBtn = NSButton(image: NSImage(systemSymbolName: "trash", accessibilityDescription: "Remove")!, target: self, action: #selector(removeApp(_:)))
+        removeBtn.identifier = NSUserInterfaceItemIdentifier(bundleID)
+        removeBtn.isBordered = false
 
         row.addArrangedSubview(well)
         row.addArrangedSubview(label)
+        row.addArrangedSubview(removeBtn)
         listStack.addArrangedSubview(row)
     }
 
     @objc func colorChanged(_ sender: NSColorWell) {
         guard let bundleID = sender.identifier?.rawValue else { return }
-        if let sRGB = sender.color.usingColorSpace(.sRGB) {
+        saveColor(bundleID: bundleID, color: sender.color)
+        updateAuraBar()
+    }
+
+    @objc func removeApp(_ sender: NSButton) {
+        guard let bundleID = sender.identifier?.rawValue else { return }
+        var mappings = UserDefaults.standard.dictionary(forKey: "AuraMappings") as? [String: [CGFloat]] ?? [:]
+        mappings.removeValue(forKey: bundleID)
+        UserDefaults.standard.set(mappings, forKey: "AuraMappings")
+        
+        listStack.arrangedSubviews.forEach { view in
+            if let stack = view as? NSStackView, stack.arrangedSubviews.contains(where: { $0.identifier?.rawValue == bundleID }) {
+                stack.removeFromSuperview()
+            }
+        }
+        updateAuraBar()
+    }
+
+    func saveColor(bundleID: String, color: NSColor) {
+        if let sRGB = color.usingColorSpace(.sRGB) {
             var mappings = UserDefaults.standard.dictionary(forKey: "AuraMappings") as? [String: [CGFloat]] ?? [:]
             mappings[bundleID] = [sRGB.redComponent, sRGB.greenComponent, sRGB.blueComponent, sRGB.alphaComponent]
             UserDefaults.standard.set(mappings, forKey: "AuraMappings")
         }
+    }
+
+    func updateAuraBar() {
         if let app = NSWorkspace.shared.frontmostApplication {
             (NSApplication.shared.delegate as? AppDelegate)?.updateAura(for: app)
         }
