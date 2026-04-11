@@ -1,6 +1,6 @@
 # AuraBar 🎨
 
-AuraBar lets you set custom menu bar colors for each of your apps, rather than using one single color for the whole system. When you switch to an app you've configured, the menu bar changes to that color; when you go back to your desktop or minimize your windows, it instantly returns to its original transparent look.
+AuraBar lets you set custom menu bar colors for each of your apps 🎨 instead of using one single color for the whole system. When you switch to an app you've configured, the menu bar changes to that color; when you go back to your desktop or minimize your windows, it instantly returns to its native transparent look. ✨
 
 ![Gif11](https://github.com/user-attachments/assets/a7654863-2f48-410b-8178-bcb0c8adf7b8)
 
@@ -17,13 +17,18 @@ Because this utility is distributed independently, follow these steps to bypass 
    - **Right-click** (or Control-click) **AuraBar** in your Applications folder and select **Open**.
    - Click **Open** on the macOS security dialog.
 
-3. **Terminal Fix (Optional)**:
+3. **System Configuration**:
+   - To ensure AuraBar works correctly, you **must disable** the native menu bar background setting. 
+   - Go to `System Settings` > `Menu Bar` > and toggle **OFF** "Show menu bar background".
+
+4. **Terminal Fix (Optional)**:
    - If the app shows a "damaged" error due to missing signatures, run:
      ```bash
      xattr -rd com.apple.quarantine /Applications/AuraBar.app
      ```
 
 ## ✨ Features
+- **OS Support:** Optimized specifically for **macOS Tahoe**. (Older versions are untested and not officially supported).
 - **Smart Updates:** Built-in versioning system that fetches the latest manifest from GitHub.
 - **Config Management:** Support for adding or removing individual application color mappings (v1.0.2+).
 - **Environment Isolation:** Hardened with App Sandbox to restrict network and file-system access.
@@ -37,4 +42,4 @@ AuraBar is designed with a "Privacy-First" approach:
 - **Transparency:** Open-source logic allows for full audit of how mappings are stored in `UserDefaults`.
 
 ## 👨‍💻 Developer
-**Aditya Sahu** *Data Engineer | macOS * [GitHub Profile](https://github.com/adityaonx)
+**Aditya Sahu** *Data Engineer | macOS Tinkerer* [GitHub Profile](https://github.com/adityaonx)
