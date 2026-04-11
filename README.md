@@ -1,6 +1,6 @@
 # AuraBar 🎨
 
-A lightweight, security-hardened macOS utility designed for adaptive menu bar aesthetics. Built with a focus on system isolation and the "Principle of Least Privilege."
+AuraBar lets you set custom menu bar colors for each of your apps, rather than using one single color for the whole system. When you switch to an app you've configured, the menu bar changes to that color; when you go back to your desktop or minimize your windows, it instantly returns to its original transparent look.
 
 ![Gif11](https://github.com/user-attachments/assets/a7654863-2f48-410b-8178-bcb0c8adf7b8)
 
