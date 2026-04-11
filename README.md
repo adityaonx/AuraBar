@@ -24,18 +24,17 @@ Because this utility is distributed independently, follow these steps to bypass 
      ```
 
 ## ✨ Features
-- **Adaptive Icons:** Fully integrated with macOS Tahoe's Luminosity logic (native Light/Dark mode support).
 - **Smart Updates:** Built-in versioning system that fetches the latest manifest from GitHub.
 - **Config Management:** Support for adding or removing individual application color mappings (v1.0.2+).
 - **Environment Isolation:** Hardened with App Sandbox to restrict network and file-system access.
-- **Native Performance:** Compiled specifically for Apple Silicon (M1/M2/M3).
+- **Native Performance:** Compiled specifically for Apple Silicon (M1/M2/M3/M4).
 
 ## 🛡 Security & Architecture
-As part of **Project ReInvento**, AuraBar is designed with a "Privacy-First" approach:
+AuraBar is designed with a "Privacy-First" approach:
 - **Sandbox Hardening:** Utilizes `com.apple.security.network.client` for update checks only; no other outbound traffic is permitted.
 - **Least Privilege:** The app operates without root access, utilizing native AppKit APIs for menu bar manipulation.
 - **Data Privacy:** Accessibility access is used exclusively to read `bundleIdentifier` metadata. No window content or keystrokes are logged.
 - **Transparency:** Open-source logic allows for full audit of how mappings are stored in `UserDefaults`.
 
 ## 👨‍💻 Developer
-**Aditya Sahu** *Data Engineer | macOS Tinkerer* [GitHub Profile](https://github.com/adityaonx)
+**Aditya Sahu** *Data Engineer | macOS * [GitHub Profile](https://github.com/adityaonx)
