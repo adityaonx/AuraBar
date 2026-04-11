@@ -17,11 +17,7 @@ Because this utility is distributed independently, follow these steps to bypass 
    - **Right-click** (or Control-click) **AuraBar** in your Applications folder and select **Open**.
    - Click **Open** on the macOS security dialog.
 
-3. **Grant Permissions**:
-   - Go to `System Settings` > `Privacy & Security` > `Accessibility`.
-   - Toggle **AuraBar** to **ON**. This allows the app to detect frontmost application changes to sync colors.
-
-4. **Terminal Fix (Optional)**:
+3. **Terminal Fix (Optional)**:
    - If the app shows a "damaged" error due to missing signatures, run:
      ```bash
      xattr -rd com.apple.quarantine /Applications/AuraBar.app
