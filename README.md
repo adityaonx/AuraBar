@@ -1,6 +1,11 @@
 # AuraBar 🎨
 
-AuraBar lets you set custom menu bar colors for each of your apps 🎨 instead of using one single color for the whole system. When you switch to an app you've configured, the menu bar changes to that color; when you go back to your desktop or minimize your windows, it instantly returns to its native transparent look. ✨
+AuraBar lets you set custom menu bar colors for each of your apps 🎨 instead of using one single color for the whole system. When you switch to a configured app, the menu bar adapts to your chosen color, instantly returning to its native transparent look ✨ when you return to the desktop. 
+
+### 🌟 Key Highlights
+* **Visual Focus:** Automatically dims the menu bar against vivid wallpapers when windows are maximized, preventing "eye-glaze" and keeping focus on the app.
+* **Pixel-Perfect UI:** Eliminates the annoying **1px gap** between the menu bar and active maximized windows for a seamless, professional aesthetic.
+* **Granular Control:** No more global backgrounds—set specific colors for the apps you use most and let the rest remain native.
 
 ![Gif11](https://github.com/user-attachments/assets/a7654863-2f48-410b-8178-bcb0c8adf7b8)
 
