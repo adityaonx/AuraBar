@@ -2,6 +2,9 @@
 
 A lightweight, security-hardened macOS utility designed for adaptive menu bar aesthetics. Built with a focus on system isolation and the "Principle of Least Privilege."
 
+![Gif11](https://github.com/user-attachments/assets/a7654863-2f48-410b-8178-bcb0c8adf7b8)
+
+
 ## 🚀 Installation
 1. Download the latest **AuraBar.dmg** from the [Latest Releases](https://github.com/adityaonx/AuraBar/releases/latest) section.
 2. Drag **AuraBar** to your `/Applications` folder.
