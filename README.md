@@ -17,11 +17,10 @@ Because this utility is distributed independently, follow these steps to bypass 
    - Download the latest `AuraBar.dmg` from the [Latest Releases](https://github.com/adityaonx/AuraBar/releases/latest) section.
    - Drag **AuraBar** to your `/Applications` folder.
 
-2. **First Launch (Bypass Gatekeeper)**:
-   - **Do not double-click** the app initially. 
-   - **Right-click** (or Control-click) **AuraBar** in your Applications folder and select **Open**.
-   - Click **Open** on the macOS security dialog.
-
+2. - On First launch you will see a pop with a warning with button **Done** and **Move To Trash**. 
+   - Click **Done** instead of **Move To Trash**
+   - Open Settings>Privacy & Security
+   - Scroll down and you'll see option **Open Anyway**. Click it.
 3. **System Configuration**:
    - To ensure AuraBar works correctly, you **must disable** the native menu bar background setting. 
    - Go to `System Settings` > `Menu Bar` > and toggle **OFF** "Show menu bar background".
