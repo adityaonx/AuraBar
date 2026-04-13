@@ -16,11 +16,17 @@ Because this utility is distributed independently, follow these steps to bypass 
 1. **Download & Move**: 
    - Download the latest `AuraBar.dmg` from the [Latest Releases](https://github.com/adityaonx/AuraBar/releases/latest) section.
    - Drag **AuraBar** to your `/Applications` folder.
+     
+> [!NOTE]
+> **Why is this needed?** macOS requires developers to pay a recurring fee to "notarize" apps. To keep AuraBar 100% free and open-source, it is self-signed. You can verify the source code yourself to ensure it is safe and respects the Principle of Least Privilege.
 
-2. - On First launch you will see a pop with a warning with button **Done** and **Move To Trash**. 
-   - Click **Done** instead of **Move To Trash**
-   - Open Settings>Privacy & Security
-   - Scroll down and you'll see option **Open Anyway**. Click it.
+2. **First Launch (Bypass Gatekeeper)**:
+   - Double-click **AuraBar**. You will see a security warning with buttons: **Done** and **Move to Trash**.
+   - **Click "Done"** (Do NOT click Move to Trash).
+   - Go to **System Settings** > **Privacy & Security**.
+   - Scroll down to the "Security" section. You will see a message stating "AuraBar was blocked..." 
+   - Click **Open Anyway** and enter your password/Touch ID to confirm.
+     
 3. **System Configuration**:
    - To ensure AuraBar works correctly, you **must disable** the native menu bar background setting. 
    - Go to `System Settings` > `Menu Bar` > and toggle **OFF** "Show menu bar background".
