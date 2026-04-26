@@ -5,7 +5,7 @@ AuraBar lets you set custom menu bar colors for each of your apps 🎨 instead o
 ### 🌟 Key Highlights
 * **Visual Focus:** Automatically dims the menu bar against vivid wallpapers when windows are maximized, preventing "eye-glaze" and keeping focus on the app.
 * **Pixel-Perfect UI:** Eliminates the annoying **1px gap** between the menu bar and active maximized windows for a seamless, professional aesthetic.
-* **Granular Control:** No more global backgrounds—set specific colors for the apps you use most and let the rest remain native.
+* **Granular Control:** No more global backgrounds, set specific colors for the apps you use most and let the rest remain native.
 
 ![Gif11](https://github.com/user-attachments/assets/a7654863-2f48-410b-8178-bcb0c8adf7b8)
 
