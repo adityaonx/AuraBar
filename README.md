@@ -37,12 +37,22 @@ Because this utility is distributed independently, follow these steps to bypass 
      xattr -rd com.apple.quarantine /Applications/AuraBar.app
      ```
 
+## 🆕 New in v1.0.3
+•	**Full-Screen Intelligence:** AuraBar now automatically pauses and sets the tint to transparent when an app enters Exclusive Full-Screen mode (e.g., Xcode, YouTube, Games), resuming instantly when you swipe back to the desktop.
+•	**Multi-Display Support:** Full support for extended displays. Each monitor now receives its own independent AuraBar instance, allowing for individual app coloring across a multi-monitor setup.
+•	**Dynamic Resolution Scaling:** No more hardcoded heights. AuraBar now dynamically measures the "Safe Area" (Notch height) of your specific display (optimized for M4 Air) to ensure it never overlaps maximized windows.
+•	**Recursion Fix:** Eliminated the layoutSubtreeIfNeeded loop error to improve system performance and clean up Xcode logs.
+
 ## ✨ Features
 - **OS Support:** Optimized specifically for **macOS Tahoe**. (Older versions are untested and not officially supported).
 - **Smart Updates:** Built-in versioning system that fetches the latest manifest from GitHub.
 - **Config Management:** Support for adding or removing individual application color mappings (v1.0.2+).
 - **Environment Isolation:** Hardened with App Sandbox to restrict network and file-system access.
 - **Native Performance:** Compiled specifically for Apple Silicon (M1/M2/M3/M4).
+
+## ⚠️ Known Issue: The "White-on-White" Contrast
+In the current version, using a very light color mapping (like pure white) may result in white text/icons appearing on a white background.
+Why? Since macOS 15+, the system's contrast sensor samples the desktop wallpaper to determine icon color (black vs. white), often ignoring third-party overlays. We are currently deducing a surgical fix for this behavior for a future release. For now, we recommend using colors with at least 15-20% saturation for the best visibility.
 
 ## 🛡 Security & Architecture
 AuraBar is designed with a "Privacy-First" approach:
