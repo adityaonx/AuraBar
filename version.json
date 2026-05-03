@@ -1,0 +1,4 @@
+{
+  "version": "1.1",
+  "changelog": "• Fixed dual-monitor overlay rendering\n• Full-screen detection for VLC-style apps\n• Tint intensity now controllable via slider\n• Settings panel with Launch at Login support\n• Auto update checks every 24 hours"
+}
